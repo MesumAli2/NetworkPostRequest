@@ -14,18 +14,26 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel : MainViewModel
     private  lateinit var binding : ActivityMainBinding
+    private lateinit var fieldMap : HashMap<String, String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        fieldMap = HashMap()
+        fieldMap.put("userId", "25")
+        fieldMap.put("name", "Henna")
+        fieldMap.put("type", "bird")
+        fieldMap.put("location", "Mars")
+
+
         val repository = Repository()
         //Initiate ViewModel
         val viewModelFactory = MainViewModel.MainViewModeFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         val post = Post(0,23,"Jake","Human", "Earth" )
-        viewModel.createPost(post = post)
+        viewModel.createPostFieldMap(fieldMap)
         viewModel.myResponse.observe(this, Observer {
             if (it.isSuccessful){
                 val reponsecode = it.body()

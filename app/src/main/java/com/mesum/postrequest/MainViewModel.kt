@@ -31,6 +31,15 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    fun createPostFieldMap(field : Map<String,String >){
+            viewModelScope.launch {
+                val response = repository.createPostFieldMap(field)
+                if (response.isSuccessful){
+                    myResponse.value = response
+                }
+            }
+    }
+
     class MainViewModeFactory(val repository: Repository) : ViewModelProvider.Factory{
 
 
