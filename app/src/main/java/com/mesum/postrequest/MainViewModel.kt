@@ -22,6 +22,15 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    fun createPost(post: Post){
+        viewModelScope.launch {
+            val response = repository.createPost(post)
+            if (response.isSuccessful){
+                myResponse.value = response
+            }
+        }
+    }
+
     class MainViewModeFactory(val repository: Repository) : ViewModelProvider.Factory{
 
 

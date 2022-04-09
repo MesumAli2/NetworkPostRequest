@@ -24,12 +24,13 @@ class MainActivity : AppCompatActivity() {
         //Initiate ViewModel
         val viewModelFactory = MainViewModel.MainViewModeFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        val post = Post("Mesum","Human", "Earth" )
-        viewModel.pushPost(post = post)
+        val post = Post(0,23,"Jake","Human", "Earth" )
+        viewModel.createPost(post = post)
         viewModel.myResponse.observe(this, Observer {
             if (it.isSuccessful){
                 val reponsecode = it.body()
                 var content = ""
+                content += "ID ${reponsecode?.id} \n"
                 content += "Name ${reponsecode?.name} \n"
                 content += "Type ${reponsecode?.type} \n"
                 content += "Location ${reponsecode?.location} \n"
